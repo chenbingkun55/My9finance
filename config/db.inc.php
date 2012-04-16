@@ -114,6 +114,26 @@ class DBSQL{
 		}
 	}
 
+/*------------------------------------------------------------------------------------------*/
+	public function corde_log($sql = "" )
+	{
+
+		if(empty($sql)) return false;
+		if(empty($this->CONN)) return false;
+		try{		
+			$corde_log = "INSERT INTO  log (id,user_id,group_id,log,create_date) VALUES ('','".$_SESSION['__username']."','".$_SESSION['__group_id']."',\"".$sql."\",'".date("Y-m-d H:i:s")."')";
+			$results = mysql_query($corde_log,$this->CONN);
+		}catch(Exception $e){
+			$msg = $e;
+			include(ERRORFILE);
+		}
+		if (!$results)
+		{
+			return false;
+		} else {
+			return @mysql_affected_rows($this->CONN);
+		}
+	}
 
 /*------------------------------------------------------------------------------------------*/
 
@@ -136,6 +156,7 @@ class DBSQL{
 	{
 		mysql_query("COMMIT");
 	}
+
 }
 
 ?>
