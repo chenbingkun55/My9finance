@@ -3,14 +3,21 @@
     header("Content-Type:text/html;charset=UTF-8"); 
     require_once("config.inc.php");
     require_once(INCLUDE_PATH.'finance.inc.php');
-        if (empty($_SESSION['__error_logid']) ) 
+        if (empty($_SESSION['__global_logid']) ) 
         {
         } else {
-            echo $Finance->convertLogIdToContent($_SESSION['__error_logid'] )."<BR><BR>";
+            echo $Finance->convertLogIdToContent($_SESSION['__global_logid'] )."<BR><BR>";
         }
     unset($_SESSION['']);
     session_unset();
     $_SESSION['__month'] = 0;
+
+	if ($_GET['logout'] == 1 )  {
+		/* 注销成功日志记录 */
+		$text_log = "用户: [".$_GET['username']."] 注销成功";
+		$Finance->CrodeLog($text_log);
+		echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
+	}
 ?>
 
 <HTML>
@@ -18,6 +25,7 @@
     <TITLE> <?PHP echo $_TITLE?> </TITLE>
     </HEAD>
         <BODY>
+		
         <?PHP echo "<BR><BR>&nbsp;<STRONG><FONT SIZE=3 COLOR=\"#3300FF\"> <a href=\"./images/logo_max_color.gif\"><IMG align=\"absmiddle\" SRC=\"./images/logo_color.gif\" WIDTH=\"25\" HEIGHT=\"21\" BORDER=\"0\" ALT=\"彩贝壳个人收支系统\"></a> ". $_TITLE ."  </FONT></STRONG><BR>";?>
         <BR>
         <fieldset>

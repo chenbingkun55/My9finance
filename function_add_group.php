@@ -98,7 +98,7 @@
     } else if ($exit_group == "EXITGROUP") {
         if ($Finance->deleteUserGroup($_SESSION['__useralive'][0]))
         {        
-            $_SESSION['__error_logid'] = "5001";
+            $_SESSION['__global_logid'] = "5001";
             echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
         } else {
             echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function.php?error_id=5001\">";

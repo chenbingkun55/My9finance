@@ -16,6 +16,8 @@
         public $_user_group = 'user_group';
         public $_log_resolve = 'log_resolve';
         public $_address = 'address';
+		public $_log = 'log';
+
 
         public $_pagesize = 10;
         public $_is_display = array("0"=>"禁用",
@@ -1153,11 +1155,19 @@
             $sql = "select max(store) from address WHERE user_id = '".$_SESSION['__useralive'][0]."'";
             return $this->select($sql);
         }
-
-
+		
+		/*  记录事件日志 */
+        public function CrodeLog($text_log = "")
+        {
+            $sql = "INSERT INTO ".$this->_log."  VALUES ('','".$_SESSION['__useralive'][0]."','".$_SESSION['__group_id']."',\"".$text_log."\",'".$_SESSION['__global_logid']."','".date("Y-m-d H:i:s")."')";
+            return $this->insert($sql);
+        }
 
 
     }
+
+	/*------------------------------------------------------------------------------------------*/
+
 
     /* 创建一个类变量 */
     $Finance = new Finance();

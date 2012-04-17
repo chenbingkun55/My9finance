@@ -9,15 +9,15 @@
 	
 	if (empty($_SESSION['__username'])  ||  $sessionid != ($Finance->getUserSession($_SESSION['__useralive'][0])))
 	{
-		$_SESSION['__error_logid'] = "3";
+		$_SESSION['__global_logid'] = "3";
 		echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 	}
 
-	//$_SESSION['__error_logid'] = $_GET['error_id'];
-	if (empty($_SESSION['__error_logid']) ) 
+	//$_SESSION['__global_logid'] = $_GET['error_id'];
+	if (empty($_SESSION['__global_logid']) ) 
 	{
 	} else {
-		echo $Finance->convertLogIdToContent($_SESSION['__error_logid'] )."<BR><BR>";
+		echo $Finance->convertLogIdToContent($_SESSION['__global_logid'] )."<BR><BR>";
 	}
 
 	if (empty($_SESSION['__username']) ) 
@@ -35,7 +35,7 @@
 
 	if (empty($_SESSION['__groupname']))
 	{
-		$_SESSION['__error_logid'] = "3";
+		$_SESSION['__global_logid'] = "3";
 		echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 	}
 	

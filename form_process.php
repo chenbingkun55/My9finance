@@ -44,7 +44,7 @@
 			case  "LOGIN": 
 				$username = $_POST['username'];
 				$password = $_POST['password'];
-				$_SESSION['__error_logid'] = "0";
+				$_SESSION['__global_logid'] = "0";
 
 				
 				/* 判断登录用户 */
@@ -62,22 +62,24 @@
 
 					if(empty( $_SESSION['__useralive'][1]))
 					{
-						$_SESSION['__error_logid'] = "5001";
+						$_SESSION['__global_logid'] = "5001";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
 					} else {
 						$_SESSION['__username']  = $_SESSION['__useralive'][1];
-						$_SESSION['__error_logid'] = "5000";
+						$_SESSION['__global_logid'] = "5000";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
 					}
+						$text_log = "用户: [".$username."] 登录成功";
 				} else {
 					if($_SESSION['__useralive'] == "useralive")
 					{
-						$_SESSION['__error_logid'] = "2";
+						$_SESSION['__global_logid'] = "2";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 					} else {
-						$_SESSION['__error_logid'] = "1";
+						$_SESSION['__global_logid'] = "1";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 					}
+						$text_log = "用户: [".$username."] 登录失败";
 				}
 				break;
 
@@ -88,11 +90,13 @@
 				$result = $Finance->insertLogResolve($log_id,$content);
 				if ($result)
 				{
-					$_SESSION['__error_logid'] = "5000";
+					$_SESSION['__global_logid'] = "5000";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
+					$text_log = "添加日志解释-成功,LOG_ID: ".$log_id." 日志解释: ".$content;
 				} else {
-					$_SESSION['__error_logid'] = "3";
+					$_SESSION['__global_logid'] = "3";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
+					$text_log = "添加日志解释-失败,LOG_ID: ".$log_id." 日志解释: ".$content;
 				}
 				break;
 
@@ -107,12 +111,16 @@
 
 					if( $Finance->insertInManType($_SESSION['__useralive'][0],$store,$is_display,$addmantypename)) 
 					{
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "添加收入主类-成功,显示: ".$_POST['is_display']." 主类名: ".$addmantypename;
+
 					} else {
-							$_SESSION['__error_logid'] = "5054";
+							$_SESSION['__global_logid'] = "5054";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "添加收入主类-失败,显示: ".$_POST['is_display']." 主类名: ".$addmantypename;
 					}
+
 				break;
 
 		case "ALTERINMANTYPE":
@@ -125,13 +133,16 @@
 					{			
 						if ($Finance->updateManType("_in_mantype",$is_display,$_POST["altermantypename"],$_SESSION['__gettype_id']))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 							$_SESSION['__gettype'] = "ADDINMANTYPE";
+							$text_log = "修改收入主类-成功,主类ID: ".$_SESSION['__gettype_id']." 显示: ".$_POST['is_display']." 修改为:".$_POST["altermantypename"];
+
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							$_SESSION['__gettype'] = "ADDINMANTYPE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "修改收入主类-失败,主类ID: ".$_SESSION['__gettype_id']." 显示: ".$_POST['is_display']." 修改为:".$_POST["altermantypename"];
 						}
 						
 					} else {
@@ -145,12 +156,13 @@
 					
 					if ($Finance->deleteManType("_in_mantype",$_SESSION['__gettype_id']))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
-							
+							$text_log = "删除收入主类-成功,主类ID: ".$_SESSION['__gettype_id'];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "删除收入主类-失败,主类ID: ".$_SESSION['__gettype_id'];
 						}
 
 					break;
@@ -169,12 +181,13 @@
 					{
 						if ($Finance->insertSubType("_in_subtype",$_SESSION['__gettype_id'],$store,$is_display,$addsubtypename))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
-							
+							$text_log = "添加收入子类-成功,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类名: ".$addsubtypename;
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "添加收入子类-失败,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类名: ".$addsubtypename;
 						}
 					} else {
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
@@ -193,13 +206,15 @@
 
 						if ($Finance->updateSubType("_in_subtype",$_SESSION['__getsubtype_id'],$is_display,$_POST["altersubtypename"]))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 							$_SESSION['__gettype'] = "ADDINSUBTYPE";
+							$text_log = "修改收入子类-成功,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类ID: ".$_SESSION['__getsubtype_id'];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							$_SESSION['__gettype'] = "ADDINSUBTYPE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "修改收入子类-失败,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类ID: ".$_SESSION['__getsubtype_id'];
 						}
 					} else {
 						$_SESSION['__gettype'] = "ALTERINSUBTYPE";
@@ -213,12 +228,14 @@
 					
 					if ($Finance->deleteSubType("_in_subtype",$_SESSION['__gettsubype_id']))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "删除收入子类-成功,主类ID: ".$_SESSION['__gettype_id']." 子类ID: ".$_SESSION['__getsubtype_id'];
 							
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "删除收入子类-失败,主类ID: ".$_SESSION['__gettype_id']." 子类ID: ".$_SESSION['__getsubtype_id'];
 						}
 
 					break;
@@ -238,11 +255,13 @@
 
 					if( $Finance->insertOutManType($_SESSION['__useralive'][0],$store,$is_display,$addmantypename)) 
 					{
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "添加支出主类-成功,显示: ".$_POST['is_display']." 主类名: ".$addmantypename;
 					} else {
-							$_SESSION['__error_logid'] = "5054";
+							$_SESSION['__global_logid'] = "5054";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "添加支出主类-失败,显示: ".$_POST['is_display']." 主类名: ".$addmantypename;
 					}
 				break;
 
@@ -256,13 +275,15 @@
 					{	
 						if ($Finance->updateManType("_out_mantype",$is_display,$_POST["altermantypename"],$_SESSION['__gettype_id']))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							$_SESSION['__gettype'] = "ADDOUTMANTYPE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "修改支出主类-成功,主类ID: ".$_SESSION['__gettype_id']." 显示: ".$_POST['is_display']." 修改为:".$_POST["altermantypename"];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							$_SESSION['__gettype'] = "ADDOUTMANTYPE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "修改支出主类-失败,主类ID: ".$_SESSION['__gettype_id']." 显示: ".$_POST['is_display']." 修改为:".$_POST["altermantypename"];
 						}
 						
 					} else {
@@ -276,12 +297,13 @@
 					
 					if ($Finance->deleteManType("_out_mantype",$_SESSION['__gettype_id']))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
-							
+							$text_log = "删除支出主类-成功,主类ID: ".$_SESSION['__gettype_id'];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "删除支出主类-失败,主类ID: ".$_SESSION['__gettype_id'];
 						}
 
 					break;
@@ -299,12 +321,13 @@
 					{
 						if ($Finance->insertSubType("_out_subtype",$_SESSION['__gettype_id'],$store,$is_display,$addsubtypename))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
-							
+							$text_log = "添加支出子类-成功,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类名: ".$addsubtypename;
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "添加支出子类-失败,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类名: ".$addsubtypename;
 						}
 					} else {
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
@@ -323,14 +346,15 @@
 
 						if ($Finance->updateSubType("_out_subtype",$_SESSION['__getsubtype_id'],$is_display,$_POST["altersubtypename"]))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							$_SESSION['__gettype'] = "ADDOUTSUBTYPE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
-							
+							$text_log = "修改支出子类-成功,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类ID: ".$_SESSION['__getsubtype_id'];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							$_SESSION['__gettype'] = "ADDOUTSUBTYPE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "修改支出子类-失败,主类ID: ".$_SESSION['__gettype_id']." 显示:".$_POST['is_display']." 子类ID: ".$_SESSION['__getsubtype_id'];
 						}
 					} else {
 						$_SESSION['__gettype'] = "ALTEROUTSUBTYPE";
@@ -344,12 +368,13 @@
 					
 					if ($Finance->deleteSubType("_out_subtype",$_SESSION['__gettsubype_id']))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
-							
+							$text_log = "删除支出子类-成功,主类ID: ".$_SESSION['__gettype_id']." 子类ID: ".$_SESSION['__getsubtype_id'];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
+							$text_log = "删除支出子类-失败,主类ID: ".$_SESSION['__gettype_id']." 子类ID: ".$_SESSION['__getsubtype_id'];
 						}
 
 					break;
@@ -358,10 +383,10 @@
 
 			if($Finance->TaxisManFront($_POST['taxis_table'],$_POST['store'])) 
 			{
-					$_SESSION['__error_logid'] = "5000";
+					$_SESSION['__global_logid'] = "5000";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			} else {
-					$_SESSION['__error_logid'] = "5054";
+					$_SESSION['__global_logid'] = "5054";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			}
 						
@@ -391,10 +416,10 @@
 			
 			if($Finance->TaxisManAfter($_POST['taxis_table'],$_POST['store'])) 
 			{
-					$_SESSION['__error_logid'] = "5000";
+					$_SESSION['__global_logid'] = "5000";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			} else {
-					$_SESSION['__error_logid'] = "5054";
+					$_SESSION['__global_logid'] = "5054";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			}
 			switch ($_POST['taxis_table']) {
@@ -424,10 +449,10 @@
 
 			if($Finance->TaxisSubFront($_POST['taxis_table'],$_POST['mantype_id'],$_POST['store'])) 
 			{
-					$_SESSION['__error_logid'] = "5000";
+					$_SESSION['__global_logid'] = "5000";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			} else {
-					$_SESSION['__error_logid'] = "5054";
+					$_SESSION['__global_logid'] = "5054";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			}
 						
@@ -457,10 +482,10 @@
 			
 			if($Finance->TaxisSubAfter($_POST['taxis_table'],$_POST['mantype_id'],$_POST['store'])) 
 			{
-					$_SESSION['__error_logid'] = "5000";
+					$_SESSION['__global_logid'] = "5000";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			} else {
-					$_SESSION['__error_logid'] = "5054";
+					$_SESSION['__global_logid'] = "5054";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_type.php\">";
 			}
 			switch ($_POST['taxis_table']) {
@@ -497,11 +522,13 @@
 				$result = $Finance->insertAddress($store,$is_display,$addr_name);
 				if ($result)
 				{
-					$_SESSION['__error_logid'] = "5000";
+					$_SESSION['__global_logid'] = "5000";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+					$text_log = "添加地址-成功,显示: ".$_POST['is_display']." 地址: ".$addr_name;
 				} else {
-					$_SESSION['__error_logid'] = "3";
+					$_SESSION['__global_logid'] = "3";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+					$text_log = "添加地址-失败,显示: ".$_POST['is_display']." 地址: ".$addr_name;
 				}
 			break;
 			
@@ -516,12 +543,14 @@
 
 						if ($Finance->updateAddress($_SESSION['__gettype_id'],$addr_name,$is_display))
 						{				
-							$_SESSION['__error_logid'] = "1";							
+							$_SESSION['__global_logid'] = "1";							
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+							$text_log = "修改地址-成功,显示: ".$_POST['is_display']." 地址改为: ".$addr_name;
 							
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+							$text_log = "修改地址-失败,显示: ".$_POST['is_display']." 地址改为: ".$addr_name;
 						}
 					} else {
 						$_SESSION['__gettype'] = "ALTERADDRESS";
@@ -535,12 +564,14 @@
 					
 					if ($Finance->deleteAddress($address_id))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+							$text_log = "删除地址-成功,地址ID: ".$address_id;
 							
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+							$text_log = "删除地址-失败,地址ID: ".$address_id;
 						}
 
 					break;
@@ -549,11 +580,13 @@
 
 				if($Finance->TaxisAddrFront($_POST['taxis_table'],$_POST['store'])) 
 				{
-						$_SESSION['__error_logid'] = "5000";
+						$_SESSION['__global_logid'] = "5000";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+						$text_log = "排序地址-成功,排序号: ".$_POST['store'];
 				} else {
-						$_SESSION['__error_logid'] = "5054";
+						$_SESSION['__global_logid'] = "5054";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
+						$text_log = "排序地址-失败,排序号: ".$_POST['store'];
 				}
 							
 				switch ($_POST['taxis_table']) {
@@ -582,10 +615,10 @@
 				
 				if($Finance->TaxisAddrAfter($_POST['taxis_table'],$_POST['store'])) 
 				{
-						$_SESSION['__error_logid'] = "5000";
+						$_SESSION['__global_logid'] = "5000";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
 				} else {
-						$_SESSION['__error_logid'] = "5054";
+						$_SESSION['__global_logid'] = "5054";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_addr.php\">";
 				}
 				switch ($_POST['taxis_table']) {
@@ -624,11 +657,13 @@
 				$_SESSION['__gettype'] = "ADDOUTCORDE";
 				if ($Finance->insertInOutRecord("_out_corde",$money,$out_mantype_id,$out_subtype_id,$address_id,$notes))
 				{
-						$_SESSION['__error_logid'] = "5010";
+						$_SESSION['__global_logid'] = "5010";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+						$text_log = "添加支出-成功,金额:".$money." 支出主类ID: ".$out_mantype_id." 支出子类: ".$out_subtype_id." 地址:".$address_id." 备注:".$notes;
 				} else {
-						$_SESSION['__error_logid'] = "1010";
+						$_SESSION['__global_logid'] = "1010";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+						$text_log = "添加支出-失败,金额:".$money." 支出主类ID: ".$out_mantype_id." 支出子类: ".$out_subtype_id." 地址:".$address_id." 备注:".$notes;
 				}
 				break;
 
@@ -647,13 +682,15 @@
 						$money = $_POST["numlist_1000"].$_POST["numlist_100"].$_POST["numlist_10"].$_POST["numlist_1"].".".$_POST["numlist_01"].$_POST["numlist_001"];
 						if ($Finance->updateOutCorde($out_corde_id,$money,$out_mantype_id,$out_subtype_id,$address_id,$notes))
 						{				
-							$_SESSION['__error_logid'] = "5012";		
+							$_SESSION['__global_logid'] = "5012";		
 							$_SESSION['__gettype']  = "ADDOUTCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";	
+							$text_log = "修改支出-成功,金额:".$money." 支出主类ID: ".$out_mantype_id." 支出子类: ".$out_subtype_id." 地址:".$address_id." 备注:".$notes;
 						} else {
-							$_SESSION['__error_logid'] = "1012";		
+							$_SESSION['__global_logid'] = "1012";		
 							$_SESSION['__gettype']  = "ADDOUTCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";	
+							$text_log = "修改支出-失败,金额:".$money." 支出主类ID: ".$out_mantype_id." 支出子类: ".$out_subtype_id." 地址:".$address_id." 备注:".$notes;
 						}
 				} else {
 				?>
@@ -715,14 +752,16 @@
 					
 					if ($Finance->deleteInOutCorde("_out_corde",$outcorde_id))
 						{				
-							$_SESSION['__error_logid'] = "5014";
+							$_SESSION['__global_logid'] = "5014";
 							$_SESSION['__gettype']  = "ADDOUTCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+							$text_log = "删除支出-成功,支出ID:".$outcorde_id;
 							
 						} else {
-							$_SESSION['__error_logid'] = "1014";
+							$_SESSION['__global_logid'] = "1014";
 							$_SESSION['__gettype']  = "ADDOUTCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+							$text_log = "删除支出-失败,支出ID:".$outcorde_id;
 						}
 				break;
 
@@ -737,11 +776,13 @@
 				$_SESSION['__gettype'] = "ADDINCORDE";
 				if ($Finance->insertInOutRecord("_in_corde",$money,$in_mantype_id,$in_subtype_id,$address_id,$notes))
 				{
-						$_SESSION['__error_logid'] = "5011";
+						$_SESSION['__global_logid'] = "5011";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+						$text_log = "添加收入-成功,金额:".$money." 收入主类ID: ".$in_mantype_id." 收入子类: ".$in_subtype_id." 地址:".$address_id." 备注:".$notes;
 				} else {
-						$_SESSION['__error_logid'] = "1011";
+						$_SESSION['__global_logid'] = "1011";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+						$text_log = "添加收入-失败,金额:".$money." 收入主类ID: ".$in_mantype_id." 收入子类: ".$in_subtype_id." 地址:".$address_id." 备注:".$notes;
 				}
 				break;
 
@@ -760,13 +801,15 @@
 						$money = $_POST["numlist_1000"].$_POST["numlist_100"].$_POST["numlist_10"].$_POST["numlist_1"].".".$_POST["numlist_01"].$_POST["numlist_001"];
 						if ($Finance->updateInCorde($in_corde_id,$money,$in_mantype_id,$in_subtype_id,$address_id,$notes))
 						{				
-							$_SESSION['__error_logid'] = "5012";		
+							$_SESSION['__global_logid'] = "5012";		
 							$_SESSION['__gettype']  = "ADDINCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";	
+							$text_log = "修改收入-成功,金额:".$money." 收入主类ID: ".$in_mantype_id." 收入子类: ".$in_subtype_id." 地址:".$address_id." 备注:".$notes;
 						} else {
-							$_SESSION['__error_logid'] = "1012";		
+							$_SESSION['__global_logid'] = "1012";		
 							$_SESSION['__gettype']  = "ADDINCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";	
+							$text_log = "修改收入-失败,金额:".$money." 收入主类ID: ".$in_mantype_id." 收入子类: ".$in_subtype_id." 地址:".$address_id." 备注:".$notes;
 						}
 				} else {
 				?>
@@ -828,14 +871,16 @@
 					
 					if ($Finance->deleteInOutCorde("_in_corde",$incorde_id))
 						{				
-							$_SESSION['__error_logid'] = "5015";
+							$_SESSION['__global_logid'] = "5015";
 							$_SESSION['__gettype']  = "ADDINCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+							$text_log = "删除收入-成功,收入ID:".$incorde_id;
 							
 						} else {
-							$_SESSION['__error_logid'] = "1015";
+							$_SESSION['__global_logid'] = "1015";
 							$_SESSION['__gettype']  = "ADDINCORDE";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=in_out_record.php\">";
+							$text_log = "删除收入-失败,收入ID:".$incorde_id;
 						}
 				break;
 
@@ -863,11 +908,13 @@
 						$Finance->insertSubTypeDefault($user_id['0']['0']);
 						$Finance->insertAddressDefault($user_id['0']['0']);
 
-						$_SESSION['__error_logid'] = "5016";
+						$_SESSION['__global_logid'] = "5016";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
+						$text_log = "添加用户-成功,用户名:".$user_name." 别名:".$user_alias." 备注:".$notes;
 				} else {
-						$_SESSION['__error_logid'] = "1016";
+						$_SESSION['__global_logid'] = "1016";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
+						$text_log = "添加用户-失败,用户名:".$user_name." 别名:".$user_alias." 备注:".$notes;
 				}
 
 				
@@ -881,33 +928,37 @@
 									{
 													if ($Finance->updateUser($_POST["user_name"],$_POST["user_alias"],$_POST["user_password_old"],$_POST["notes"]))
 													{	
-														$_SESSION['__error_logid'] = "5017";		
+														$_SESSION['__global_logid'] = "5017";		
 														echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";	
+														$text_log = "修改用户-成功,用户名:".$_POST["user_name"]." 别名:".$_POST["user_alias"]." 备注:".$_POST["notes"];
 														
 													} else {
-														$_SESSION['__error_logid'] = "1017";		
+														$_SESSION['__global_logid'] = "1017";		
 														echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
+														$text_log = "修改用户-失败,用户名:".$_POST["user_name"]." 别名:".$_POST["user_alias"]." 备注:".$_POST["notes"];
 													}
 									} else {
 													if ( $_SESSION['__useralive'][0] == 1 && $_SESSION['__gettype_id'] != 1 )
 													{			
 																	if ( $Finance->updateUser($_POST["user_name"],$_POST["user_alias"],$_POST["user_password"],$_POST["notes"]))
 																	{
-																			$_SESSION['__error_logid'] = "5020";
+																			$_SESSION['__global_logid'] = "5020";
 																				echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
+																				$text_log = "修改用户-成功,用户名:".$_POST["user_name"]." 别名:".$_POST["user_alias"]." 备注:".$_POST["notes"];
 																	} else {
-																				$_SESSION['__error_logid'] = "1019";
+																				$_SESSION['__global_logid'] = "1019";
 																				echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
+																				$text_log = "修改用户-失败,用户名:".$_POST["user_name"]." 别名:".$_POST["user_alias"]." 备注:".$_POST["notes"];
 																	}					
 													} else {
 																	if ( $Finance->updateUser( $_POST["user_name"],$_POST["user_alias"],$_POST["user_password"],$_POST["notes"]))
 																	{
-																				$_SESSION['__error_logid'] = "5019";
+																				$_SESSION['__global_logid'] = "5019";
 																				$_SESSION['__username'] = "";
-																				echo $Finance->convertLogIdToContent($_SESSION['__error_logid'] );
+																				echo $Finance->convertLogIdToContent($_SESSION['__global_logid'] );
 																				echo "<BR><BR><a href=\"index.php\"><<返回  登录页面</a>";
 																	} else {
-																				$_SESSION['__error_logid'] = "1019";
+																				$_SESSION['__global_logid'] = "1019";
 																				echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
 																	}					
 													}
@@ -930,12 +981,14 @@
 					$Finance->deleteUserGroup($_POST["user_id"]);
 					if ($Finance->deleteUser($_POST["user_id"]))
 						{				
-							$_SESSION['__error_logid'] = "5018";
+							$_SESSION['__global_logid'] = "5018";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
+							$text_log = "删除用户数据-成功,用户ID:".$_POST["user_id"];
 							
 						} else {
-							$_SESSION['__error_logid'] = "1018";
+							$_SESSION['__global_logid'] = "1018";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_user.php\">";
+							$text_log = "删除用户数据-失败,用户ID:".$_POST["user_id"];
 						}
 				break;
 
@@ -947,21 +1000,25 @@
 						$Finance->insertUserGroup($_SESSION['__useralive'][0],$Finance->getGroupAdminID());
 						if ($_SESSION['__useralive'][0] == 1 )
 						{
-							$_SESSION['__error_logid'] = "5016";
+							$_SESSION['__global_logid'] = "5016";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
+							$text_log = "添加家庭组-成功,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 						} else {
 
-							$_SESSION['__error_logid'] = "5016";
-							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";						
+							$_SESSION['__global_logid'] = "5016";
+							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";				
+							$text_log = "添加家庭组-成功,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 						}
 				} else {
 						if ($_SESSION['__useralive'][0] == 1 )
 						{
-							$_SESSION['__error_logid'] = "1016";
+							$_SESSION['__global_logid'] = "1016";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
+							$text_log = "添加家庭组-失败,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 						} else {
-							$_SESSION['__error_logid'] = "1016";
-							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";						
+							$_SESSION['__global_logid'] = "1016";
+							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";	
+							$text_log = "添加家庭组-失败,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 						}
 				}
 				break;
@@ -976,21 +1033,21 @@
 							{
 								if ($Finance->updateGroup($_POST["group_name"],$_POST["group_alias"],$_POST["group_password_old"],$_POST["notes"]))
 								{				
-									$_SESSION['__error_logid'] = "5017";	
+									$_SESSION['__global_logid'] = "5017";	
 									$_SESSION['__gettype'] = "ADDGROUP";
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";	
 								} else {
-									$_SESSION['__error_logid'] = "1017";		
+									$_SESSION['__global_logid'] = "1017";		
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 								}
 							} else {
 								if ( $Finance->updateGroup( $_POST["group_name"],$_POST["group_alias"],$_POST["group_password"],$_POST["notes"]))
 								{
-									$_SESSION['__error_logid'] = "5019";
+									$_SESSION['__global_logid'] = "5019";
 									$_SESSION['__gettype'] = "ADDGROUP";
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 								} else {
-									$_SESSION['__error_logid'] = "1019";
+									$_SESSION['__global_logid'] = "1019";
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 								}
 							}
@@ -1009,17 +1066,17 @@
 					{
 						echo "删除管理员组成功！";
 					} else {
-						$_SESSION['__error_logid'] = "1018";
+						$_SESSION['__global_logid'] = "1018";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 					}
 				}
 
 				if ($Finance->deleteGroup($_POST["group_id"]))
 				{				
-					$_SESSION['__error_logid'] = "5018";
+					$_SESSION['__global_logid'] = "5018";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 				} else {
-					$_SESSION['__error_logid'] = "1018";
+					$_SESSION['__global_logid'] = "1018";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 				}
 				break;
@@ -1032,11 +1089,13 @@
 
 							if ($Finance->insertLogResolve($_POST["log_id"] ,$_POST["content"]))
 							{				
-									$_SESSION['__error_logid'] = "1";		
+									$_SESSION['__global_logid'] = "1";		
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";	
+									$text_log = "添加日志解释-成功,LOG_ID: ".$_POST["log_id"]." 日志解释: ".$_POST["content"];
 							} else {
-									$_SESSION['__error_logid'] = "5000";		
+									$_SESSION['__global_logid'] = "5000";		
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
+									$text_log = "添加日志解释-失败,LOG_ID: ".$_POST["log_id"]." 日志解释: ".$_POST["content"];
 							}
 						break;
 
@@ -1045,13 +1104,15 @@
 					{ 
 										if ($Finance->updateLog($_SESSION['__log_id'] ,$_POST["log_id"],$_POST["content"]))
 										{				
-											$_SESSION['__error_logid'] = "1";		
+											$_SESSION['__global_logid'] = "1";		
 											$_SESSION['__gettype'] = "";
 											echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";	
+											$text_log = "修改日志解释-成功,LOG_ID: ".$_POST["log_id"]." 日志解释: ".$_POST["content"];
 										} else {
-											$_SESSION['__error_logid'] = "5000";		
+											$_SESSION['__global_logid'] = "5000";		
 											$_SESSION['__gettype'] = "";
 											echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
+											$text_log = "修改日志解释-失败,LOG_ID: ".$_POST["log_id"]." 日志解释: ".$_POST["content"];
 										}
 						} else {
 							$_SESSION['__gettype_id']  = $_POST["log_id"];
@@ -1065,12 +1126,13 @@
 					
 					if ($Finance->deleteLog($_POST["id"]))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							$_SESSION['__gettype'] = "";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
+							$text_log = "删除日志解释-成功,LOG_ID: ".$_POST["id"];
 							
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							$_SESSION['__gettype'] = "";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
 						}
@@ -1083,23 +1145,23 @@
 						{
 							if ($Finance->insertUserGroup($_SESSION['__useralive'][0],$_POST['group_id']))
 							{				
-								$_SESSION['__error_logid'] = "1";
+								$_SESSION['__global_logid'] = "1";
 								echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";	
 							} else {
-								$_SESSION['__error_logid'] = "5000";
+								$_SESSION['__global_logid'] = "5000";
 								echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";
 							}
 						} else {
-								$_SESSION['__error_logid'] = "5000";
+								$_SESSION['__global_logid'] = "5000";
 								echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";
 						}
 					} else {
 						if ($Finance->updateUserGroup($_SESSION['__useralive'][0],$_POST['group_id']))
 						{
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";	
 						} else {
-								$_SESSION['__error_logid'] = "5000";
+								$_SESSION['__global_logid'] = "5000";
 								echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";
 							}
 					}
@@ -1108,11 +1170,13 @@
 				case "ACCPETMEMBER":
 					if ($Finance->addAccpetUserGroup($_POST["member"]))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
+							$text_log = "允许用户加入 [".$_SESSION['__groupname']."] 家庭-成功,成员: ".$_POST["member"];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
+							$text_log = "允许用户加入 [".$_SESSION['__groupname']."] 家庭-失败,成员: ".$_POST["member"];
 						}
 
 				break;
@@ -1120,11 +1184,13 @@
 				case "DENYMEMBER":
 					if ($Finance->deleteUserGroup($_POST["member"]))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
+							$text_log = "拒绝用户添加到 [".$_SESSION['__groupname']."] 家庭-成功,成员: ".$_POST["member"];
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
+							$text_log = "拒绝用户添加到 [".$_SESSION['__groupname']."] 家庭-失败,成员: ".$_POST["member"];
 						}
 				break;
 
@@ -1132,12 +1198,14 @@
 					
 					if ($Finance->deleteGroupMember($_POST["user_id"]))
 						{				
-							$_SESSION['__error_logid'] = "1";
+							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";
+							$text_log = "删除 [".$_SESSION['__groupname']."] 家庭中成员-成功,删除用户ID: ".$_POST["user_id"];
 							
 						} else {
-							$_SESSION['__error_logid'] = "5000";
+							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";
+							$text_log = "删除 [".$_SESSION['__groupname']."] 家庭中成员-失败,删除用户ID: ".$_POST["user_id"];
 						}
 				break;
 
@@ -1145,5 +1213,7 @@
 				echo "执行了默认操作";
 				break;
 			}
+	/* 日志记录 */
+	if (! empty($text_log)) $Finance->CrodeLog($text_log);
 
 ?>
