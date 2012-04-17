@@ -1172,11 +1172,11 @@
 						{				
 							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
-							$text_log = "允许用户加入 [".$_SESSION['__groupname']."] 家庭-成功,成员: ".$_POST["member"];
+							$text_log = "允许用户加入 [".$_SESSION['__groupname']."] 家庭-成功,成员: ".$Finance->convertUserID($_POST["member"]);
 						} else {
 							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
-							$text_log = "允许用户加入 [".$_SESSION['__groupname']."] 家庭-失败,成员: ".$_POST["member"];
+							$text_log = "允许用户加入 [".$_SESSION['__groupname']."] 家庭-失败,成员: ".$Finance->convertUserID($_POST["member"]);
 						}
 
 				break;
@@ -1186,11 +1186,11 @@
 						{				
 							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
-							$text_log = "拒绝用户添加到 [".$_SESSION['__groupname']."] 家庭-成功,成员: ".$_POST["member"];
+							$text_log = "拒绝用户添加到 [".$_SESSION['__groupname']."] 家庭-成功,成员: ".$Finance->convertUserID($_POST["member"]);
 						} else {
 							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
-							$text_log = "拒绝用户添加到 [".$_SESSION['__groupname']."] 家庭-失败,成员: ".$_POST["member"];
+							$text_log = "拒绝用户添加到 [".$_SESSION['__groupname']."] 家庭-失败,成员: ".$Finance->convertUserID($_POST["member"]);
 						}
 				break;
 
@@ -1200,12 +1200,12 @@
 						{				
 							$_SESSION['__global_logid'] = "1";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";
-							$text_log = "删除 [".$_SESSION['__groupname']."] 家庭中成员-成功,删除用户ID: ".$_POST["user_id"];
+							$text_log = "删除 [".$_SESSION['__groupname']."] 家庭中成员-成功,删除用户ID: ".$Finance->convertUserID($_POST["user_id"]);
 							
 						} else {
 							$_SESSION['__global_logid'] = "5000";
 							echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_add_group.php\">";
-							$text_log = "删除 [".$_SESSION['__groupname']."] 家庭中成员-失败,删除用户ID: ".$_POST["user_id"];
+							$text_log = "删除 [".$_SESSION['__groupname']."] 家庭中成员-失败,删除用户ID: ".$Finance->convertUserID($_POST["user_id"]);
 						}
 				break;
 
