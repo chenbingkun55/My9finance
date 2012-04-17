@@ -53,9 +53,9 @@
 				$Finance->refurbishUserSession($_SESSION['__useralive'][0]);
 				if( $_SESSION['__username'] == $username )
 				{ 
-					if ( $Finance->getUserResideGroup())
+					if ( $Finance->getUserResideGroup($_SESSION['__useralive'][0]))
 					{
-						$_SESSION['__group_id'] = $Finance->getUserResideGroup();
+						$_SESSION['__group_id'] = $Finance->getUserResideGroup($_SESSION['__useralive'][0]);
 					} else {
 						$_SESSION['__group_id'] = "0";
 					}
