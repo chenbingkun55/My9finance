@@ -89,7 +89,6 @@
         public function insertUser($user_name,$user_alias,$user_password,$notes)
         {
             $sql = "INSERT INTO ".$this->_users." (id,username,user_alias,password,notes,create_date)   VALUES  ('','".$user_name."','".$user_alias."','".$user_password."','".$notes."','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             return $this->insert($sql);
         }
 
@@ -97,10 +96,8 @@
         public function insertManTypeDefault($user_id)
         {
             $sql = "INSERT INTO ".$this->_out_mantype." (id,user_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','1','1','衣','".date("Y-m-d H:i:s")."'),('','".$user_id."','2','1','食','".date("Y-m-d H:i:s")."'),('','".$user_id."','3','1','住','".date("Y-m-d H:i:s")."'),('','".$user_id."','4','1','行','".date("Y-m-d H:i:s")."'),('','".$user_id."','5','1','我','".date("Y-m-d H:i:s")."'),('','".$user_id."','6','1','信息费','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
             $sql = "INSERT INTO ".$this->_in_mantype." (id,user_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','1','1','固定收入','".date("Y-m-d H:i:s")."'),('','".$user_id."','2','1','其它收入','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
         }
 
@@ -112,14 +109,12 @@
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_out_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','服装','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','2','1','鞋帽','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
             /* 食----------------------------------------------------------------------------- */
             $sql_mantype = "SELECT id from out_mantype where name = '食' and user_id = '".$user_id."'";
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_out_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','早餐','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','2','1','午餐','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','3','1','晚餐','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','4','1','夜宵','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
 
             /* 住----------------------------------------------------------------------------- */
@@ -127,7 +122,6 @@
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_out_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','日常用品','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','2','1','家用电器','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','3','1','房租','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
 
             /* 行----------------------------------------------------------------------------- */
@@ -135,7 +129,6 @@
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_out_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','公交车','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','2','1','的士','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','3','1','地铁','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','4','1','火车','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','5','1','摩的','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','6','1','飞机','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','7','1','轮船','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
 
             /* 我----------------------------------------------------------------------------- */
@@ -143,7 +136,6 @@
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_out_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','零食','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','2','1','饮料','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','3','1','理发','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
 
 
@@ -152,7 +144,6 @@
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_out_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','网络费','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','2','1','手机费','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','3','1','电话费','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','4','1','通信硬件','".date("Y-m-d H:i:s")."'),('','".$user_id."','".$mantype_id['0']['0']."','5','1','通信软件','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
 
             /* 固定收入----------------------------------------------------------------------------- */
@@ -160,7 +151,6 @@
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_in_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','工资','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
 
             /* 其它收入----------------------------------------------------------------------------- */
@@ -168,7 +158,6 @@
             $mantype_id = $this->select($sql_mantype);
             
             $sql = "INSERT INTO ".$this->_in_subtype." (id,user_id,man_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','".$mantype_id['0']['0']."','1','1','未知','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
         }
 
@@ -177,7 +166,6 @@
         public function insertAddressDefault($user_id)
         {
             $sql = "INSERT INTO ".$this->_address." (id,user_id,store,is_display,name,create_date)   VALUES  ('','".$user_id."','1','1','公司','".date("Y-m-d H:i:s")."'),('','".$user_id."','2','1','公司附近','".date("Y-m-d H:i:s")."'),('','".$user_id."','3','1','家里','".date("Y-m-d H:i:s")."'),('','".$user_id."','4','1','综合大卖场','".date("Y-m-d H:i:s")."'),('','".$user_id."','5','1','超市菜市场','".date("Y-m-d H:i:s")."'),('','".$user_id."','6','1','电脑城','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             $this->insert($sql);
         }
 
@@ -191,7 +179,6 @@
             } else {
                     $sql = "UPDATE ".$this->_users." SET username = '".$user_name."',user_alias = '".$user_alias."', password = '".$user_password."' ,notes = '".$notes."'  WHERE id = '".$_SESSION['__useralive'][0]."'";
             }
-			$this->corde_log($sql);
             return $this->update($sql);
         }
 
@@ -201,7 +188,6 @@
             if ($_SESSION['__useralive'][0] == 1 )
             {
                     $sql = "DELETE FROM ".$this->_users." WHERE id = '".$user_id."'";
-					$this->corde_log($sql);
                     return $this->delete($sql);
             } else {
                     return false;
@@ -214,7 +200,6 @@
         public function refurbishUserSession($user_id)
         {
             $sql = "UPDATE users SET last_date = '".date("Y-m-d H:i:s")."' , session = '".session_id()."' WHERE id = '".$user_id."'";
-			$this->corde_log($sql);
             return $this->update($sql);
         }
 
@@ -267,7 +252,6 @@
         public function deleteGroupMember($member)
         {
             $sql = "DELETE FROM ".$this->_user_group." WHERE user_id = '".$member."'";
-			$this->corde_log($sql);
             return $this->delete($sql);
         }
 
@@ -276,7 +260,6 @@
         public function updateGroup($group_name,$group_alias,$group_password,$notes)
         {
             $sql = "UPDATE ".$this->_groups." SET groupname = '".$group_name."',group_alias = '".$group_alias."', password = '".$group_password."' ,notes = '".$notes."'  WHERE id = '".$_SESSION['__gettype_id']."'";
-			$this->corde_log($sql);
             return $this->update($sql);
         }
 
@@ -302,7 +285,6 @@
         public function insertGroup($group_name,$group_alias,$group_password,$notes)
         {
             $sql = "INSERT INTO ".$this->_groups." (id,groupname,group_alias,groupadmin_id,password,notes,create_date)   VALUES  ('','".$group_name."','".$group_alias."','".$_SESSION['__useralive'][0]."','".$group_password."','".$notes."','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             return $this->insert($sql);
         }
 
@@ -313,7 +295,6 @@
             if ($_SESSION['__useralive'][0] == 1 || $this->getGroupAdmin())
             {
                     $sql = "DELETE FROM ".$this->_groups." WHERE id = '".$group_id."'";
-					$this->corde_log($sql);
                     return $this->delete($sql);
             } else {
                     return false;
@@ -399,7 +380,6 @@
             } else {
                 $sql = "INSERT INTO ".$this->_user_group." (id,user_id,group_id,create_date)   VALUES  ('','".$user_id."','".$group_id."','".date("Y-m-d H:i:s")."')";
             }
-			$this->corde_log($sql);
             return $this->insert($sql);
         }
 
@@ -416,7 +396,6 @@
         public function updateUserGroup($user_id,$group_id)
         {
             $sql = "UPDATE user_group set group_id = '".$group_id."',disable = '1' where user_id = '".$user_id."'";
-			$this->corde_log($sql);
             return $this->update($sql);
         }
 
@@ -424,7 +403,6 @@
         public function addAccpetUserGroup($user_id)
         {
                 $sql = "UPDATE user_group set disable = '0' WHERE user_id = '".$user_id."'";
-				$this->corde_log($sql);
                 return $this->update($sql);        
         }
 
@@ -441,7 +419,6 @@
                 return false;
             } else {
                 $sql = "DELETE FROM user_group where user_id = '".$user_id."'";
-				$this->corde_log($sql);
                 return $this->delete($sql);
             }
         }
@@ -451,7 +428,6 @@
         public function deleteUserGroupForAdmin()
         {
             $sql = "DELETE FROM user_group where user_id = '".$_SESSION['__useralive'][0]."'";
-			$this->corde_log($sql);
                 return $this->delete($sql);
         }
 
@@ -468,7 +444,6 @@
         public function insertInManType($user_id,$store,$is_display,$addmantypename)
         {
             $sql = "INSERT INTO   ".$this->_in_mantype . "  VALUES ('','".$user_id."','".$store."','".$is_display."','".$addmantypename."','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             return $this->insert($sql);
         }
 
@@ -477,8 +452,7 @@
         public function updateManType($in_out_type,$is_display,$altermantypename,$mantype_id)
         {
             $sql = "UPDATE ".$this->$in_out_type." SET name = '".$altermantypename."',is_display = '".$is_display."' WHERE id = '".$mantype_id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->update($sql);
+            return $this->update($sql);
         }
 
 
@@ -486,8 +460,7 @@
         public function deleteManType($in_out_type,$mantype_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_type." where id = '".$mantype_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->delete($sql);
+            return $this->delete($sql);
         }
 
 
@@ -516,7 +489,6 @@
         public function insertOutManType($user_id,$store,$is_display,$addmantypename)
         {
             $sql = "INSERT INTO   ".$this->_out_mantype . "  VALUES ('','".$user_id."','".$store."','".$is_display."','".$addmantypename."','".date("Y-m-d H:i:s")."')";
-			$this->corde_log($sql);
             return $this->insert($sql);
         }
 
@@ -525,8 +497,7 @@
         public function insertInOutRecord($in_out_corde,$money,$mantype_id,$subtype_id,$address_id,$notes)
         {
             $sql = "INSERT INTO ".$this->$in_out_corde ."  VALUES ('','".$money."','".$_SESSION['__useralive'][0]."','".$_SESSION['__group_id']."','".$mantype_id."','".$subtype_id."','".$address_id."','".$notes."','".date("Y-m-d H:i:s")."')";
-            $this->corde_log($sql);
-			return $this->insert($sql);
+            return $this->insert($sql);
         }
 
 
@@ -534,16 +505,14 @@
         public function     updateOutCorde($id,$money,$mantype_id,$subtype_id,$address_id,$notes)
         {
             $sql = "UPDATE ".$this->_out_corde." SET money = '".$money."',out_mantype_id = '".$mantype_id."',out_subtype_id = '".$subtype_id."',addr_id = '".$address_id."', notes = '".$notes."'  WHERE id = '".$id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->update($sql);
+            return $this->update($sql);
         }
 
         /*更新收入记录函数 */
         public function     updateInCorde($id,$money,$mantype_id,$subtype_id,$address_id,$notes)
         {
             $sql = "UPDATE ".$this->_in_corde." SET money = '".$money."',in_mantype_id = '".$mantype_id."',in_subtype_id = '".$subtype_id."',addr_id = '".$address_id."', notes = '".$notes."'  WHERE id = '".$id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->update($sql);
+            return $this->update($sql);
         }
 
 
@@ -552,8 +521,7 @@
         public function deleteInOutCorde($in_out_corde,$corde_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_corde." where id = '".$corde_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->delete($sql);
+            return $this->delete($sql);
         }
 
 
@@ -561,8 +529,7 @@
         public function deleteUserData($in_out_corde,$user_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_corde." where user_id = '".$user_id."'";
-            $this->corde_log($sql);
-			return $this->delete($sql);
+            return $this->delete($sql);
         }
 
 
@@ -570,8 +537,7 @@
         public function deleteUserDataForGroupAdmin($in_out_corde)
         {
             $sql = "DELETE FROM ".$this->$in_out_corde." where group_id = '".$_SESSION['__group_id']."'";
-            $this->corde_log($sql);
-			return $this->delete($sql);
+            return $this->delete($sql);
         }
 
 
@@ -598,7 +564,7 @@
         public function insertManType($typetable,$store,$is_display,$name)
         {
             $sql = "INSERT INTO ".$this->$typetable."  VALUES ('','".$store."','".$is_display."','".$name."')";
-            $this->corde_log($sql);
+            
             return $this->insert($sql);
         }
 
@@ -607,7 +573,7 @@
         public function insertSubType($typetable,$man_id,$store,$is_display,$name)
         {
             $sql = "INSERT INTO ".$this->$typetable." values ('','".$_SESSION['__useralive'][0]."','".$man_id."','".$store."','".$is_display."','".$name."','".date("Y-m-d H:i:s")."')";
-            $this->corde_log($sql);
+            
             return $this->insert($sql);
         }
 
@@ -616,8 +582,7 @@
         public function updateSubType($in_out_type,$subtype_id,$is_display,$altersubtypename)
         {
             $sql = "UPDATE ".$this->$in_out_type." SET name = '".$altersubtypename."',is_display = '".$is_display."' WHERE id = '".$subtype_id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->update($sql);
+            return $this->update($sql);
         }
 
 
@@ -625,7 +590,6 @@
         public function deleteSubType($in_out_type,$subtype_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_type." where id = '".$subtype_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
-			$this->corde_log($sql);
             return $this->delete($sql);
         }
 
@@ -662,8 +626,7 @@
         public function insertLogResolve($log_id,$content)
         {
             $sql = "INSERT INTO ".$this->_log_resolve." values ('','".$log_id."','".$content."')";        
-			$this->corde_log($sql);
-			return $this->insert($sql);
+            return $this->insert($sql);
         }
 
 
@@ -683,8 +646,7 @@
         public function updateLog($id,$log_id,$content)
         {
             $sql = "UPDATE ".$this->_log_resolve." SET log_id = '".$log_id."',content = '".$content."' WHERE id = '".$id."'";
-            $this->corde_log($sql);
-			return $this->update($sql);
+            return $this->update($sql);
         }
 
 
@@ -692,7 +654,6 @@
         public function deleteLog($id)
         {
             $sql = "DELETE FROM ".$this->_log_resolve." where id = '".$id."'";
-			$this->corde_log($sql);
             return $this->delete($sql);
         }
 
@@ -725,7 +686,7 @@
         public function insertAddress($store,$is_display,$addr_name)
         {
             $sql = "INSERT INTO ".$this->_address."  VALUES ('','".$_SESSION['__useralive'][0]."','".$store."','".$is_display."','".$addr_name."','".date("Y-m-d H:i:s")."')";
-            $this->corde_log($sql);
+            
             return $this->insert($sql);
         }
 
@@ -733,8 +694,7 @@
         public function updateAddress($address_id,$addr_name,$is_display)
         {
             $sql = "UPDATE ".$this->_address." SET name = '".$addr_name."',is_display = '".$is_display."' WHERE id = '".$address_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->update($sql);
+            return $this->update($sql);
         }
 
 
@@ -743,8 +703,7 @@
         public function deleteAddress($address_id)
         {
             $sql = "DELETE FROM ".$this->_address." where id = '".$address_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
-            $this->corde_log($sql);
-			return $this->delete($sql);
+            return $this->delete($sql);
         }
 
         /*获取传过来的ID对应Store值函数 */
@@ -1051,15 +1010,12 @@
             {
                 $num = $id-1;
                 $sql = "UPDATE ".$this->$table." SET store = '0' where store = '".$num."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$num."' where store = '".$id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$id."' where store = '0'";
-				$this->corde_log($sql);
                 $this->update($sql);
             } else {
                 return false;
@@ -1077,15 +1033,12 @@
             {
                 $num = $id+1;
                 $sql = "UPDATE ".$this->$table." SET store = '0' where store = '".$num."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$num."' where store = '".$id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$id."' where store = '0'";
-				$this->corde_log($sql);
                 $this->update($sql);
             } else {
                 return false;
@@ -1101,15 +1054,12 @@
             {
                 $num = $id-1;
                 $sql = "UPDATE ".$this->$table." SET store = '0' where store = '".$num."' AND man_id = '".$man_id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$num."' where store = '".$id."' AND man_id = '".$man_id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$id."' where store = '0' AND man_id = '".$man_id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
             } else {
                 return false;
@@ -1127,15 +1077,12 @@
             {
                 $num = $id+1;
                 $sql = "UPDATE ".$this->$table." SET store = '0' where store = '".$num."' AND man_id = '".$man_id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$num."' where store = '".$id."' AND man_id = '".$man_id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$id."' where store = '0' AND man_id = '".$man_id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
             } else {
                 return false;
@@ -1151,15 +1098,12 @@
             {
                 $num = $id-1;
                 $sql = "UPDATE ".$this->$table." SET store = '0' where store = '".$num."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$num."' where store = '".$id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$id."' where store = '0'";
-				$this->corde_log($sql);
                 $this->update($sql);
             } else {
                 return false;
@@ -1177,15 +1121,12 @@
             {
                 $num = $id+1;
                 $sql = "UPDATE ".$this->$table." SET store = '0' where store = '".$num."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$num."' where store = '".$id."'";
-				$this->corde_log($sql);
                 $this->update($sql);
 
                 $sql = "UPDATE ".$this->$table." SET store = '".$id."' where store = '0'";
-				$this->corde_log($sql);
                 $this->update($sql);
             } else {
                 return false;
