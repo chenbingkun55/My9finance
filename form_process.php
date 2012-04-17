@@ -69,7 +69,7 @@
 						$_SESSION['__global_logid'] = "5000";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
 					}
-						$text_log = "用户: [".$username."] 登录成功";
+						$text_log = "用户: [".$_SESSION['__username']."] 登录成功";
 				} else {
 					if($_SESSION['__useralive'] == "useralive")
 					{
@@ -79,7 +79,7 @@
 						$_SESSION['__global_logid'] = "1";
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 					}
-						$text_log = "用户: [".$username."] 登录失败";
+						$text_log = "用户: [".$_SESSION['__username']."] 登录失败";
 				}
 				break;
 
