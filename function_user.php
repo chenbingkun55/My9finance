@@ -2,7 +2,7 @@
 	<?PHP require_once("head.php");?>
 <BODY>
 <?PHP 
-	if( $_SESSION['__gettype'] == "ALTERUSER" ||  $_SESSION['__useralive'][0] != 1)
+	if( $_SESSION['__gettype'] == "ALTERUSER" ||  $_SESSION['__useralive'][0] != 1 )
 	{
 			if (empty($_SESSION['__gettype_id']))
 			{

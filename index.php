@@ -6,7 +6,7 @@
         if (empty($_SESSION['__global_logid']) ) 
         {
         } else {
-            echo $Finance->convertLogIdToContent($_SESSION['__global_logid'] )."<BR><BR>";
+            echo "<BLINK>".$Finance->convertLogIdToContent($_SESSION['__global_logid'] )."</BLINK>";
         }
     unset($_SESSION['']);
     session_unset();
@@ -43,6 +43,7 @@
         </TABLE>
             <INPUT type="hidden" name="login" value="LOGIN">
             <INPUT type="submit" value="<?PHP echo $_LOGIN?>">
+			<a href="regedit_user.php?registr=1"><?PHP echo $_REGISTR?></a>
         </FORM>
         </fieldset>
         <?PHP    

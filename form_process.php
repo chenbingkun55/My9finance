@@ -5,6 +5,7 @@
 
 
 		if ($_POST['login'])  $form_name = str_replace(" ","",$_POST['login']);
+		if ($_POST['registr_user'])  $form_name = str_replace(" ","",$_POST['registr_user']);
 		if ($_POST['addmantype']) $form_name = str_replace(" ","",$_POST['addmantype']);
 		if ($_POST['alterinmantype']) $form_name = str_replace(" ","",$_POST['alterinmantype']);
 		if ($_POST['alteroutmantype']) $form_name = str_replace(" ","",$_POST['alteroutmantype']);
@@ -80,6 +81,21 @@
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 					}
 						$text_log = "用户: [".$_SESSION['__username']."] 登录失败";
+				}
+				break;
+			
+			
+			case  "REGISTRUSER": 
+				if ($Finance->insertUser($_POST['user_name'],$_POST['user_alias'],$_POST['user_password'],$_POST['notes'])) {
+					$_SESSION['__global_logid'] = "5003";
+					$user_id = $Finance->getUserID($_POST['user_name']);
+					$Finance->insertManTypeDefault($user_id[0][0]);
+					$Finance->insertSubTypeDefault($user_id[0][0]);
+					$Finance->insertAddressDefault($user_id[0][0]);
+					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
+				} else {
+					$_SESSION['__global_logid'] = "5004";
+					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 				}
 				break;
 

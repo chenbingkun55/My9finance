@@ -6,7 +6,11 @@
 	require_once(INCLUDE_PATH.'finance.inc.php');
 	$sessionid = session_id();
 	$xing = '';
-	
+	if ( $_GET['registr'] == 1 ):
+		echo "&nbsp;<STRONG><FONT SIZE=3 COLOR=\"#3300FF\"> <a href=\"./images/logo_max_color.gif\"><IMG align=\"absmiddle\" SRC=\"./images/logo_color.gif\" WIDTH=\"25\" HEIGHT=\"21\" BORDER=\"0\" ALT=\"彩贝壳个人收支系统\"></a> ". $_TITLE ."  </FONT></STRONG><BR><BR>";
+		echo "新用户注册:";
+
+	else:
 	if (empty($_SESSION['__username'])  ||  $sessionid != ($Finance->getUserSession($_SESSION['__useralive'][0])))
 	{
 		$_SESSION['__global_logid'] = "3";
@@ -51,6 +55,7 @@
 	echo "  <a href=\"search.php\"><<搜索</a>";
 	echo "  <a href=\"task.php\"><<任务</a>";
 	echo "<BR><BR>";
+endif;
 ?>
 <HEAD>
 <TITLE> <?PHP echo $_TITLE?> </TITLE>

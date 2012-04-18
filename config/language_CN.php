@@ -5,6 +5,7 @@
     $_IN = "收入";
     $_OUT = "支出";
     $_LOGIN = "登录";
+	$_REGISTR = "注册";
     $_LOGOUT = "退出";
     $_IN_OUT_RECORD = "收支记录";
     $_FUNCTION =  "功能管理";
