@@ -83,23 +83,6 @@
 				}
 				break;
 
-			case $_ADD_LOG_RESOLVE: 
-				$log_id = $_POST['log_id'];
-				$content = $_POST['content'];
-
-				$result = $Finance->insertLogResolve($log_id,$content);
-				if ($result)
-				{
-					$_SESSION['__global_logid'] = "5000";
-					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
-					$text_log = "添加日志解释-成功,LOG_ID: ".$log_id." 日志解释: ".$content;
-				} else {
-					$_SESSION['__global_logid'] = "3";
-					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_log.php\">";
-					$text_log = "添加日志解释-失败,LOG_ID: ".$log_id." 日志解释: ".$content;
-				}
-				break;
-
 		case "ADDINMANTYPE":
 					$store_max = $Finance->getMaxManStore("_in_mantype");
 					$store = $store_max['0']['0'] + 1;
