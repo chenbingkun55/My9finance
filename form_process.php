@@ -1034,9 +1034,11 @@
 								{				
 									$_SESSION['__global_logid'] = "5017";	
 									$_SESSION['__gettype'] = "ADDGROUP";
+									$text_log = "修改家庭组-成功,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";	
 								} else {
-									$_SESSION['__global_logid'] = "1017";		
+									$_SESSION['__global_logid'] = "1017";	
+									$text_log = "修改家庭组-失败,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 								}
 							} else {
@@ -1044,9 +1046,11 @@
 								{
 									$_SESSION['__global_logid'] = "5019";
 									$_SESSION['__gettype'] = "ADDGROUP";
+									$text_log = "修改家庭组-成功,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 								} else {
 									$_SESSION['__global_logid'] = "1019";
+									$text_log = "修改家庭组-失败,组名:".$_POST['group_name']." 组别名:".$_POST['group_alias'];
 									echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 								}
 							}
@@ -1069,13 +1073,16 @@
 						echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 					}
 				}
-
+				
+				$group_name = $Finance->convertGroupAliasID($_POST["group_id"]);
 				if ($Finance->deleteGroup($_POST["group_id"]))
 				{				
 					$_SESSION['__global_logid'] = "5018";
+					$text_log = "删除 [".$group_name[0]."] 家庭组-成功";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 				} else {
 					$_SESSION['__global_logid'] = "1018";
+					$text_log = "删除 [".$group_name[0]."] 家庭组-失败";
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=function_group.php\">";
 				}
 				break;
