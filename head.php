@@ -21,7 +21,7 @@
 	if (empty($_SESSION['__global_logid']) ) 
 	{
 	} else {
-		echo $Finance->convertLogIdToContent($_SESSION['__global_logid'] )."<BR><BR>";
+		echo "<BLINK>".$Finance->convertLogIdToContent($_SESSION['__global_logid'] )."</BLINK><BR><BR>";
 	}
 
 	if (empty($_SESSION['__username']) ) 
