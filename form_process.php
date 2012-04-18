@@ -1214,6 +1214,8 @@
 				break;
 			}
 	/* 日志记录 */
-	if (! empty($text_log)) $Finance->CrodeLog($text_log);
+	if (! empty($text_log)) {
+		$Finance->CrodeLog($text_log);
+	}
 
 ?>
