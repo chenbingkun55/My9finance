@@ -178,9 +178,24 @@
             if  ( $_SESSION['__useralive'][0] == 1 )
             {
                     $sql = "UPDATE ".$this->_users." SET username = '".$user_name."',user_alias = '".$user_alias."', password = '".$user_password."' ,notes = '".$notes."'  WHERE id = '".$_SESSION['__gettype_id']."'";
+					$old_corde_sql = "SELECT * FROM ".$this->_users." WHERE id = '".$_SESSION['__gettype_id']."'";
             } else {
                     $sql = "UPDATE ".$this->_users." SET username = '".$user_name."',user_alias = '".$user_alias."', password = '".$user_password."' ,notes = '".$notes."'  WHERE id = '".$_SESSION['__useralive'][0]."'";
+					$old_corde_sql = "SELECT * FROM ".$this->_users." WHERE id = '".$_SESSION['__useralive'][0]."'";
             }
+			/* 记录修改前的资料 START */
+			
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_users." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->update($sql);
         }
 
@@ -190,6 +205,20 @@
             if ($_SESSION['__useralive'][0] == 1 )
             {
                     $sql = "DELETE FROM ".$this->_users." WHERE id = '".$user_id."'";
+					/* 记录修改前的资料 START */
+					$old_corde_sql = "SELECT * FROM ".$this->_users." WHERE id = '".$user_id."'";
+					$old_corde1 = $this->select($old_corde_sql);
+					$old_corde = "表名:".$this->_users." 原记录: ";
+					for($j=0;$j<count($old_corde1);$j++) {
+						for($i=0;$i<count($old_corde1[$j]);$i++) {
+							$old_corde .= "'".$old_corde1[$j][$i]."',";
+						}
+						$old_corde .= " | ";
+					}
+
+					$this->corde_sql_log($old_corde);
+					/*  记录修改前的资料 END */
+
                     return $this->delete($sql);
             } else {
                     return false;
@@ -254,6 +283,20 @@
         public function deleteGroupMember($member)
         {
             $sql = "DELETE FROM ".$this->_user_group." WHERE user_id = '".$member."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_user_group." WHERE user_id = '".$member."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_user_group." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->delete($sql);
         }
 
@@ -262,6 +305,19 @@
         public function updateGroup($group_name,$group_alias,$group_password,$notes)
         {
             $sql = "UPDATE ".$this->_groups." SET groupname = '".$group_name."',group_alias = '".$group_alias."', password = '".$group_password."' ,notes = '".$notes."'  WHERE id = '".$_SESSION['__gettype_id']."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_groups." WHERE id = '".$_SESSION['__gettype_id']."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_groups." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->update($sql);
         }
 
@@ -297,6 +353,19 @@
             if ($_SESSION['__useralive'][0] == 1 || $this->getGroupAdmin())
             {
                     $sql = "DELETE FROM ".$this->_groups." WHERE id = '".$group_id."'";
+					/* 记录修改前的资料 START */
+					$old_corde_sql = "SELECT * FROM ".$this->_groups." WHERE id = '".$group_id."'";
+					$old_corde1 = $this->select($old_corde_sql);
+					$old_corde = "表名:".$this->_groups." 原记录: ";
+					for($j=0;$j<count($old_corde1);$j++) {
+						for($i=0;$i<count($old_corde1[$j]);$i++) {
+							$old_corde .= "'".$old_corde1[$j][$i]."',";
+						}
+						$old_corde .= " | ";
+					}
+
+					$this->corde_sql_log($old_corde);
+					/*  记录修改前的资料 END */
                     return $this->delete($sql);
             } else {
                     return false;
@@ -398,6 +467,19 @@
         public function updateUserGroup($user_id,$group_id)
         {
             $sql = "UPDATE user_group set group_id = '".$group_id."',disable = '1' where user_id = '".$user_id."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM user_group where user_id = '".$user_id."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:user_group 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->update($sql);
         }
 
@@ -421,6 +503,20 @@
                 return false;
             } else {
                 $sql = "DELETE FROM user_group where user_id = '".$user_id."'";
+				/* 记录修改前的资料 START */
+				$old_corde_sql = "SELECT * FROM user_group where user_id = '".$user_id."'";
+				$old_corde1 = $this->select($old_corde_sql);
+				$old_corde = "表名:user_group 原记录: ";
+				for($j=0;$j<count($old_corde1);$j++) {
+					for($i=0;$i<count($old_corde1[$j]);$i++) {
+						$old_corde .= "'".$old_corde1[$j][$i]."',";
+					}
+					$old_corde .= " | ";
+				}
+
+				$this->corde_sql_log($old_corde);
+				/*  记录修改前的资料 END */
+
                 return $this->delete($sql);
             }
         }
@@ -429,7 +525,20 @@
         /* 删除用户与组的关系从组管理员函数 */
         public function deleteUserGroupForAdmin()
         {
-            $sql = "DELETE FROM user_group where user_id = '".$_SESSION['__useralive'][0]."'";
+				$sql = "DELETE FROM user_group where user_id = '".$_SESSION['__useralive'][0]."'";
+				/* 记录修改前的资料 START */
+				$old_corde_sql = "SELECT * FROM user_group where user_id = '".$_SESSION['__useralive'][0]."'";
+				$old_corde1 = $this->select($old_corde_sql);
+				$old_corde = "表名:user_group 原记录: ";
+				for($j=0;$j<count($old_corde1);$j++) {
+					for($i=0;$i<count($old_corde1[$j]);$i++) {
+						$old_corde .= "'".$old_corde1[$j][$i]."',";
+					}
+					$old_corde .= " | ";
+				}
+
+				$this->corde_sql_log($old_corde);
+				/*  记录修改前的资料 END */
                 return $this->delete($sql);
         }
 
@@ -454,6 +563,18 @@
         public function updateManType($in_out_type,$is_display,$altermantypename,$mantype_id)
         {
             $sql = "UPDATE ".$this->$in_out_type." SET name = '".$altermantypename."',is_display = '".$is_display."' WHERE id = '".$mantype_id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->$in_out_type."  WHERE id = '".$mantype_id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->$in_out_type." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->update($sql);
         }
 
@@ -462,6 +583,19 @@
         public function deleteManType($in_out_type,$mantype_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_type." where id = '".$mantype_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->$in_out_type."  WHERE id = '".$mantype_id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->$in_out_type." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->delete($sql);
         }
 
@@ -507,6 +641,19 @@
         public function     updateOutCorde($id,$money,$mantype_id,$subtype_id,$address_id,$notes)
         {
             $sql = "UPDATE ".$this->_out_corde." SET money = '".$money."',out_mantype_id = '".$mantype_id."',out_subtype_id = '".$subtype_id."',addr_id = '".$address_id."', notes = '".$notes."'  WHERE id = '".$id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_out_corde."  WHERE id = '".$id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_out_corde." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->update($sql);
         }
 
@@ -514,6 +661,19 @@
         public function     updateInCorde($id,$money,$mantype_id,$subtype_id,$address_id,$notes)
         {
             $sql = "UPDATE ".$this->_in_corde." SET money = '".$money."',in_mantype_id = '".$mantype_id."',in_subtype_id = '".$subtype_id."',addr_id = '".$address_id."', notes = '".$notes."'  WHERE id = '".$id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_in_corde."  WHERE id = '".$id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_in_corde." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->update($sql);
         }
 
@@ -523,6 +683,20 @@
         public function deleteInOutCorde($in_out_corde,$corde_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_corde." where id = '".$corde_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->$in_out_corde."  where id = '".$corde_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->$in_out_corde." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->delete($sql);
         }
 
@@ -531,6 +705,20 @@
         public function deleteUserData($in_out_corde,$user_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_corde." where user_id = '".$user_id."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->$in_out_corde."  where user_id = '".$user_id."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->$in_out_corde." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->delete($sql);
         }
 
@@ -539,6 +727,20 @@
         public function deleteUserDataForGroupAdmin($in_out_corde)
         {
             $sql = "DELETE FROM ".$this->$in_out_corde." where group_id = '".$_SESSION['__group_id']."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->$in_out_corde."  where group_id = '".$_SESSION['__group_id']."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->$in_out_corde." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->delete($sql);
         }
 
@@ -584,6 +786,19 @@
         public function updateSubType($in_out_type,$subtype_id,$is_display,$altersubtypename)
         {
             $sql = "UPDATE ".$this->$in_out_type." SET name = '".$altersubtypename."',is_display = '".$is_display."' WHERE id = '".$subtype_id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->$in_out_type."  WHERE id = '".$subtype_id."' AND user_id = '". $_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->$in_out_type." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->update($sql);
         }
 
@@ -592,6 +807,20 @@
         public function deleteSubType($in_out_type,$subtype_id)
         {
             $sql = "DELETE FROM ".$this->$in_out_type." where id = '".$subtype_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->$in_out_type."  where id = '".$subtype_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->$in_out_type." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->delete($sql);
         }
 
@@ -648,6 +877,20 @@
         public function updateLog($id,$log_id,$content)
         {
             $sql = "UPDATE ".$this->_log_resolve." SET log_id = '".$log_id."',content = '".$content."' WHERE id = '".$id."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_log_resolve."  WHERE id = '".$id."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_log_resolve." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->update($sql);
         }
 
@@ -656,6 +899,20 @@
         public function deleteLog($id)
         {
             $sql = "DELETE FROM ".$this->_log_resolve." where id = '".$id."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_log_resolve." where id = '".$id."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_log_resolve." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->delete($sql);
         }
 
@@ -696,6 +953,20 @@
         public function updateAddress($address_id,$addr_name,$is_display)
         {
             $sql = "UPDATE ".$this->_address." SET name = '".$addr_name."',is_display = '".$is_display."' WHERE id = '".$address_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_address." WHERE id = '".$address_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_address." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
+
             return $this->update($sql);
         }
 
@@ -705,6 +976,19 @@
         public function deleteAddress($address_id)
         {
             $sql = "DELETE FROM ".$this->_address." where id = '".$address_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			/* 记录修改前的资料 START */
+			$old_corde_sql = "SELECT * FROM ".$this->_address." where id = '".$address_id."' AND user_id = '".$_SESSION['__useralive'][0]."'";
+			$old_corde1 = $this->select($old_corde_sql);
+			$old_corde = "表名:".$this->_address." 原记录: ";
+			for($j=0;$j<count($old_corde1);$j++) {
+				for($i=0;$i<count($old_corde1[$j]);$i++) {
+					$old_corde .= "'".$old_corde1[$j][$i]."',";
+				}
+				$old_corde .= " | ";
+			}
+
+			$this->corde_sql_log($old_corde);
+			/*  记录修改前的资料 END */
             return $this->delete($sql);
         }
 
