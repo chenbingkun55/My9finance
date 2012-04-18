@@ -1,8 +1,8 @@
 <?PHP
 
-define("UserName","xth_10564221");
+define("UserName","recod");
 define("PassWord","chenbk55");
-define("ServerName","sql307.xtreemhost.com");
+define("ServerName","localhost");
 define("DBName","my9finance");
 define("ERRORFILE","error.php");
 // define("ROOT_PATH",dirname(_FILE_).'/');

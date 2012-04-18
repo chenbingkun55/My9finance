@@ -89,9 +89,15 @@
 				if ($Finance->insertUser($_POST['user_name'],$_POST['user_alias'],$_POST['user_password'],$_POST['notes'])) {
 					$_SESSION['__global_logid'] = "5003";
 					$user_id = $Finance->getUserID($_POST['user_name']);
-					$Finance->insertManTypeDefault($user_id[0][0]);
-					$Finance->insertSubTypeDefault($user_id[0][0]);
-					$Finance->insertAddressDefault($user_id[0][0]);
+					
+					/* 新注册用户默认属于公共组 */
+					$Finance->insertUserGroup($user_id['0']['0'],$group_id);
+
+					/* 插入新用户的默认值 */
+					$Finance->insertManTypeDefault($user_id['0']['0']);
+					$Finance->insertSubTypeDefault($user_id['0']['0']);
+					$Finance->insertAddressDefault($user_id['0']['0']);
+
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=index.php\">";
 				} else {
 					$_SESSION['__global_logid'] = "5004";
