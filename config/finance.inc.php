@@ -1159,7 +1159,8 @@
 		/*  记录事件日志 */
         public function CrodeLog($text_log = "")
         {
-            $sql = "INSERT INTO ".$this->_log."  VALUES ('','".$_SESSION['__useralive'][0]."','".$_SESSION['__group_id']."',\"".$text_log."\",'".$_SESSION['__global_logid']."','".date("Y-m-d H:i:s")."')";
+			$info_log = "文件:".$_SERVER['PHP_SELF']." 上一页面:".$_SERVER['HTTP_REFERER']." 协议:".$_SERVER['SERVER_PROTOCOL']." 当前主机:".$_SERVER['SERVER_NAME']." 当标识:".$_SERVER['SERVER_SOFTWARE']." 方法:".$_SERVER['REQUEST_METHOD']." HTTP主机:".$_SERVER['HTTP_HOST']." 客户端主机名:".$_SERVER['REMOTE_HOST']." 客户端浏览器:".$_SERVER['HTTP_USER_AGENT']." 客户端IP:".$_SERVER['REMOTE_ADDR']." 请求头信息:".$_SERVER['HTTP_ACCEPT']." 代理头信息:".$_SERVER['HTTP_USER_AGENT'];
+            $sql = "INSERT INTO ".$this->_log."  VALUES ('','".$_SESSION['__useralive'][0]."','".$_SESSION['__group_id']."',\"".$text_log."\",\"".$info_log."\",'".$_SESSION['__global_logid']."','".date("Y-m-d H:i:s")."')";
             return $this->insert($sql);
         }
 
