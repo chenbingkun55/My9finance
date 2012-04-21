@@ -864,7 +864,7 @@
 									?>
 									</SELECT>				
 									<BR>
-									<?PHP $Finance->NumList(); echo $_YUAN?>
+									<?PHP $Finance->NumList($money); echo $_YUAN?>
 									<BR><?PHP echo $_NOTES?><BR>
 									<input type="text" name="notes" size="10" maxlength="50" value ="<?PHP echo $notes?>">
 									<INPUT type="hidden" name="in_corde_id" value="<?PHP echo $in_corde_id ?>">
