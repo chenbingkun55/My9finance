@@ -47,6 +47,9 @@
 				$password = $_POST['password'];
 				$_SESSION['__global_logid'] = "0";
 
+
+				
+				
 				
 				/* 判断登录用户 */
 				$_SESSION['__useralive'] = $Finance->login($username,  $password);	

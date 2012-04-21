@@ -20,6 +20,9 @@
 	//$_SESSION['__global_logid'] = $_GET['error_id'];
 	if (empty($_SESSION['__global_logid']) ) 
 	{
+	} elseif ( $_SESSION['__group_id'] == "0" ) {
+		$_SESSION['__global_logid'] = "5005";
+		echo "<BLINK>".$Finance->convertLogIdToContent($_SESSION['__global_logid'] )."</BLINK><BR><BR>";
 	} else {
 		echo "<BLINK>".$Finance->convertLogIdToContent($_SESSION['__global_logid'] )."</BLINK><BR><BR>";
 	}
