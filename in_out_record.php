@@ -154,7 +154,7 @@
 						echo "<INPUT type=\"hidden\" name=\"out_mantype_id\" value=".$value[4].">";
 						echo "<INPUT type=\"hidden\" name=\"out_subtype_id\" value=".$value[5].">";
 						echo "<INPUT type=\"hidden\" name=\"address_id\" value=".$value[6].">";
-						echo "<INPUT type=\"hidden\" name=\"money\" value=".$value[8].">";
+						echo "<INPUT type=\"hidden\" name=\"money\" value=".$value[1].">";
 						echo "<INPUT type=\"hidden\" name=\"notes\" value=".$value[7].">";
 						echo "<INPUT type=\"hidden\" name=\"alteroutcorde\" value=\"ALTEROUTCORDE\">";
 						echo "</FORM>";

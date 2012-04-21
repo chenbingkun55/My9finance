@@ -743,7 +743,7 @@
 									?>
 									</SELECT>				
 									<BR>
-									<?PHP $Finance->NumList(); echo $_YUAN?>
+									<?PHP $Finance->NumList($money); echo $_YUAN?>
 									<BR><?PHP echo $_NOTES?><BR>
 									<input type="text" name="notes" size="10" maxlength="50" value ="<?PHP echo $notes?>">
 									<INPUT type="hidden" name="out_corde_id" value="<?PHP echo $out_corde_id ?>">
@@ -751,8 +751,11 @@
 									<input type="hidden" name="alteroutcorde" value="ALTEROUTCORDE">
 									<INPUT type="submit" value="<?PHP echo $_ALTER.$_ADD_OUT?>">
 							</FORM>
+													
+							
 	
 			<?PHP
+				echo $money."TEST";
 							}
 					break;
 			case "DELETEOUTCORDE":

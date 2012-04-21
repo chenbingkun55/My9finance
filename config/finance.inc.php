@@ -1223,13 +1223,27 @@
 
 
          /* SELECT数字选择函数*/
-        public function NumList()
+        public function NumList($money ="" )
         {
+
+			$old_money = explode(".",$money);
+			$numlist_1000 = $old_money[0]/1000%10;
+			$numlist_100 = $old_money[0]/100%10;
+			$numlist_10 = $old_money[0]/10%10;
+			$numlist_1 = $old_money[0]/1%10;
+
+			$numlist_01 = $old_money[1]/10%10;
+			$numlist_001 = $old_money[1]/1%10;
+
             $i = 0;
             echo "<select  name = \"numlist_1000\" >";
             while($i<10)
             {
-                echo "<option value =".$i.">" . $i . "</option>";
+				if ( $i == $numlist_1000 ) {
+					echo "<option selected=\"selected\" value =".$i.">" . $i . "</option>";
+				} else {
+					echo "<option value =".$i.">" . $i . "</option>";
+				}
                 $i++;
             }
                 echo "</select >";
@@ -1239,7 +1253,11 @@
             echo "<select  name = \"numlist_100\" >";
             while($i<10)
             {
-                echo "<option value =".$i.">" . $i . "</option>";
+				if ( $i == $numlist_100 ) {
+					echo "<option selected=\"selected\" value =".$i.">" . $i . "</option>";
+				} else {
+					echo "<option value =".$i.">" . $i . "</option>";
+				}
                 $i++;
             }
                 echo "</select >";
@@ -1249,7 +1267,11 @@
             echo "<select  name = \"numlist_10\" >";
             while($i<10)
             {
-                echo "<option value =".$i.">" . $i . "</option>";
+				if ( $i == $numlist_10 ) {
+					echo "<option selected=\"selected\" value =".$i.">" . $i . "</option>";
+				} else {
+					echo "<option value =".$i.">" . $i . "</option>";
+				}
                 $i++;
             }
                 echo "</select >";
@@ -1259,7 +1281,11 @@
             echo "<select  name = \"numlist_1\" >";
             while($i<10)
             {
-                echo "<option value =".$i.">" . $i . "</option>";
+				if ( $i == $numlist_1 ) {
+					echo "<option selected=\"selected\" value =".$i.">" . $i . "</option>";
+				} else {
+					echo "<option value =".$i.">" . $i . "</option>";
+				}
                 $i++;
             }
                 echo "</select >";
@@ -1271,7 +1297,11 @@
             echo "<select  name = \"numlist_01\">";
             while($i<10)
             {
-                echo "<option value =".$i.">" . $i . "</option>";
+				if ( $i == $numlist_01 ) {
+					echo "<option selected=\"selected\" value =".$i.">" . $i . "</option>";
+				} else {
+					echo "<option value =".$i.">" . $i . "</option>";
+				}
                 $i++;
             }
                 echo "</select >";
@@ -1281,7 +1311,11 @@
             echo "<select  name = \"numlist_001\" >";
             while($i<10)
             {
-                echo "<option value =".$i.">" . $i . "</option>";
+				if ( $i == $numlist_001 ) {
+					echo "<option selected=\"selected\" value =".$i.">" . $i . "</option>";
+				} else {
+					echo "<option value =".$i.">" . $i . "</option>";
+				}
                 $i++;
             }
                 echo "</select >";
