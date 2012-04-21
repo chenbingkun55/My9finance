@@ -755,7 +755,6 @@
 							
 	
 			<?PHP
-				echo $money."TEST";
 							}
 					break;
 			case "DELETEOUTCORDE":
